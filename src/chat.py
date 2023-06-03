@@ -19,5 +19,3 @@ I am trying to get healthier, I would like suggestions of activity that I can do
 """
 
 print(chat_model.predict(template))
-
-
