@@ -11,7 +11,7 @@ with open("config.yaml") as creds:
     keys = yaml.safe_load(creds)
 
 class JsonIn(BaseModel):
-    data: dict
+    data: str
 
 class PredictionOut(BaseModel):
     text: str
@@ -22,8 +22,9 @@ def home_page():
 
 @app.post("/send", response_model=PredictionOut)
 def send(health_payload: JsonIn):
-    response = chat_gpt(health_payload)
-    return {"chatgpt_response": response}
+    text = chat_gpt(health_payload.data)
+    print(text)
+    return {"text":text}
 
 def chat_gpt(text_input):
     chat_model = ChatOpenAI(openai_api_key=keys["chatgpt"])
