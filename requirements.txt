@@ -1,5 +1,4 @@
 openai
 langchain
 numpy
-fastapi
 yaml
