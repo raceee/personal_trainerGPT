@@ -6,3 +6,5 @@ yaml
 pymongo
 boto3
 python-dotenv
+pyyaml
+
