@@ -2,13 +2,19 @@ from fastapi import FastAPI
 import openai
 from pydantic import BaseModel
 from langchain.chat_models import ChatOpenAI
+from aws_conn import get_secret
 from langchain import PromptTemplate
 import yaml
+from mangum import Mangum
+import json
+
+
+
 
 app = FastAPI()
 
-with open("config.yaml") as creds:
-    keys = yaml.safe_load(creds)
+# with open("config.yaml") as creds:
+#     keys = yaml.safe_load(creds)
 
 class JsonIn(BaseModel):
     data: str
@@ -27,9 +33,11 @@ def send(health_payload: JsonIn):
     return {"text":text}
 
 def chat_gpt(text_input):
-    chat_model = ChatOpenAI(openai_api_key=keys["chatgpt"])
+    chat_model = ChatOpenAI(openai_api_key=get_secret()['Secret'])
     template = f"""
     I am trying to get healthier, I would like suggestions of activity that I can do based on some of the biometric data my Apple Watch is producing. Here is a json file of the health data that was produced this week:
     {text_input}
     """
     return chat_model.predict(template)
+
+handler = Mangum(app)

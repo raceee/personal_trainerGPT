@@ -1,8 +1,6 @@
 import boto3
 import json
 
-
-
 def get_secret(secret_name='trainergpt_secret'):
 
     client = boto3.client(
@@ -17,9 +15,3 @@ def get_secret(secret_name='trainergpt_secret'):
     chatgpt_secret = json.loads(response['SecretString'])
 
     return chatgpt_secret
-
-
-print(get_secret())
-
-
-

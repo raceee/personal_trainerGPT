@@ -2,9 +2,9 @@ openai
 langchain
 numpy
 fastapi
-yaml
 pymongo
 boto3
 python-dotenv
 pyyaml
+mangum
 
